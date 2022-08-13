@@ -1,0 +1,53 @@
+.navbar {
+    background-color: #FDF6EA !important;
+    background-color: black !important;
+  }
+  
+  .nav-link {
+    color: white !important;
+  }
+  
+  #logo {
+    float: left;
+    font-size: 1.7em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-weight: bold;
+  }
+  
+  #home-container {
+    background-image: asset-url('jumbo-copy.jpeg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 425px;
+    margin-top: 25px;
+  }
+  
+  html,
+  body {
+    height: 100%;
+    position: relative;
+  }
+  
+  #page-content {
+    flex: 1 0 auto;
+    background-color: rgb(214, 244, 172);
+  }
+  
+  #sticky-footer {
+    flex-shrink: none;
+  }
+
+  .badge {
+    text-decoration: none;
+  }
+
+  .footer-bs{
+    position: absolute;
+    width: 100%;
+    min-height: 10px;
+    bottom: .015em;
+    left: 0;
+}
