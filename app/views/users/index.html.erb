@@ -1,7 +1,7 @@
 <h1 class="text-center mt-4">Alpha Bloggers</h1>
 
 <div class="flickr_pagination">
-  <%= will_paginate @users, :container => false %>
+  <%= will_paginate @users, :container=> false %>
 </div>
 
 <div class="container">
@@ -16,9 +16,20 @@
             <h5 class="card-title">
               <%= link_to gravatar_for(user, size: 100), user %>
             </h5>
-            <p class="card-text"><%= pluralize(user.articles.count, "article") %></p>
-            <%= link_to "View profile", user, class: "badge rounded-pill text-bg-warning" %>
-            <%= link_to "Edit profile", edit_user_path(user), class: "badge rounded-pill text-bg-info" %>
+            <p class="card-text">
+              <%= pluralize(user.articles.count, "article" ) %>
+            </p>
+            <%= link_to "View profile" , user, class: "badge rounded-pill text-bg-warning" %>
+              <% if logged_in? %>
+                <% if user == current_user %>
+                  <%= link_to "Edit profile" , edit_user_path(user), class: "badge rounded-pill text-bg-info" %>
+                <% end %>
+                  <% if current_user.admin? %>
+                    <%= button_to 'Delete user' , user_path(user), class: "badge rounded-pill text-bg-danger" ,
+                        method: :delete, form: {
+                        turbo_confirm: "Are you sure your want to delete the user & all associated articles?" } %>
+                  <% end %>
+              <% end %>
           </div>
           <div class="card-footer text-muted">
             <small>Joined <%= time_ago_in_words(user.created_at) %> ago</small>
@@ -26,9 +37,9 @@
         </div>
       </div>
     </div>
-  <% end %>
+    <% end %>
 </div>
 
 <div class="flickr_pagination mb-2">
-  <%= will_paginate @users, :container => false %>
+  <%= will_paginate @users, :container=> false %>
 </div>

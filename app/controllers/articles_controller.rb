@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
     before_action :set_article, only: [:show, :edit, :update, :destroy]
+    before_action :require_user, except: [:show, :index]
+    before_action :require_same_user, only: [:edit, :update, :destroy]
 
     def show
     end
@@ -17,9 +19,9 @@ class ArticlesController < ApplicationController
 
     def create
         @article = Article.new(article_params)
-        @article.user = User.first
+        @article.user = current_user
         if @article.save
-          flash[:notice] = "Article was created successfully."
+          flash[:alert] = "Article was created successfully."
           redirect_to @article 
         else
           render 'new'
@@ -48,6 +50,13 @@ class ArticlesController < ApplicationController
 
     def article_params
         params.require(:article).permit(:title, :description, category_ids: [])
+    end
+
+    def require_same_user
+        if current_user != @article.user && !current_user.admin?
+            flash[:error] = "You can only edit or delete your own article"
+            redirect_to @article
+        end
     end
     
 end
